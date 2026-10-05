@@ -1,0 +1,58 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "angelic-angel"
+version = "0.1.0"
+description = "Receive Twitter/X Web Push notifications through Mozilla AutoPush"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = [
+    "cryptography>=43",
+    "http-ece>=1.2,<2",
+    "httpx>=0.27,<1",
+    "tomli-w>=1.1,<2",
+    "websockets>=15,<18",
+    "xclienttransaction>=1.0.3,<2",
+]
+
+[project.scripts]
+angelic-angel = "angelic_angel.cli:main"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.13",
+    "pytest>=8",
+    "pytest-asyncio>=0.24",
+    "pytest-cov>=6",
+    "ruff>=0.8",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/angelic_angel"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+files = ["src", "tests"]
+
+[[tool.mypy.overrides]]
+module = ["http_ece", "x_client_transaction", "x_client_transaction.*"]
+ignore_missing_imports = true
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "UP", "B", "D"]
+ignore = ["D105", "D107", "D200", "D205", "D212", "D400", "D401", "D403", "D415"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "pep257"

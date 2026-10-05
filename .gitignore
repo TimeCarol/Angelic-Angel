@@ -1,0 +1,13 @@
+.venv/
+.idea/
+.DS_Store
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+*.egg-info/
+angelic-angel.toml
